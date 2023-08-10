@@ -38,9 +38,7 @@ datasets:
       params:
         ddconfig:
           embed_dim: 256
-          n_embed1: 1024
-          n_embed2: 256
-          n_embed3: 128
+          n_embed: 1024
           beta: 0.25
           resolution: 256
           in_channels: 3
@@ -153,4 +151,3 @@ dist_params:
   backend: nccl
   port: 29500
 
-find_unused_parameters: true

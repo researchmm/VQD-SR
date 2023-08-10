@@ -201,7 +201,7 @@ class AttnBlock(nn.Module):
 
 class Model(nn.Module):
     def __init__(self, 
-                 n_embed1,
+                 n_embed,
                  embed_dim,
                  resolution, ch=128, down_f=16,
                  in_channels=3, out_channels=3, ch_mult=(1,1,2,2,4), 

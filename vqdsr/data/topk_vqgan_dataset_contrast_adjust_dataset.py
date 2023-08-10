@@ -18,7 +18,7 @@ from basicsr.utils.matlab_functions import imresize
 from basicsr.utils import FileClient, get_root_logger, imfrombytes, img2tensor
 from vqdsr.data.data_utils import random_crop
 
-from vqgan.model_multiscale_load_top_correct import VQModel
+from vqgan.model_multiscale_load_top import VQModel
 
 @DATASET_REGISTRY.register() 
 class TopkVQGANContrastDataset(data.Dataset):
