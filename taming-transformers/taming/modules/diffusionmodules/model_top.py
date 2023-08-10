@@ -261,7 +261,7 @@ class Model(nn.Module):
                             torch.nn.Conv2d(in_ch, embed_dim,kernel_size=3,stride=1,padding=1)
                             )    
         
-        self.top.quantize = VectorQuantizer(n_embed1, embed_dim, beta=beta, legacy=True)
+        self.top.quantize = VectorQuantizer(n_embed, embed_dim, beta=beta, legacy=True)
 
         self.top.decode_convin = torch.nn.Conv2d(embed_dim,
                                        in_ch,

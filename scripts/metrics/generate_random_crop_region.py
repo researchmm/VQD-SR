@@ -1,10 +1,10 @@
 import os
 import random
 
-img_size_info = "./reallq_animesr_size.txt"
+img_size_info = "./reallq_avc_size.txt"  # the original size of each videos in test dataset
 crop_size=224
-average_iters=20
-
+average_iters = 20  # num of crops for each video
+num_set = 3  
 
 def generate_one_set(cor_record):
     with open(os.path.join(img_size_info), 'r') as f:
@@ -22,7 +22,6 @@ def generate_one_set(cor_record):
                 f.write(string)
 
 if __name__=='__main__':
-    num_set = 20
     for i in range(num_set):
         cor_record = './crop_meta/crop_'+str(i)
         os.makedirs(cor_record, exist_ok=True)

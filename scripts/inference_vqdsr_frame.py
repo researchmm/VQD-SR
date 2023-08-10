@@ -20,9 +20,6 @@ from basicsr.utils.img_util import img2tensor, tensor2img
 
 from vqdsr.archs.vsr_wo_sr_arch import MSRSWVSR_WO_SR
 
-# CUDA_VISIBLE_DEVICES='0' python scripts/inference_animesr_frames.py -i /home/v-zixituo/data/AVC/AVC-Train -n AnimeSR_v2/AnimeSR_v1-PaperModel --expname animesr_v2 -o /home/v-zixituo/data/AVC/AVC-Train-4x/AVC-Train-animesrv2-4x
-# CUDA_VISIBLE_DEVICES='0' python scripts/inference_vqdsr_frame.py -i /home/v-zixituo/v-zixituo/data/AVC/AVC-RealLQ --model_path /home/v-zixituo/code/AnimeSR/experiments/base_net_g_300000.pth --expname animesr_reproduct_net_si10 --sample_interval 10 --ema
-
 def get_inference_model(args, device):
     """return an on device model with eval mode"""
     # set up model
@@ -158,69 +155,72 @@ def main():
         consumer.start()
 
     for video_name in videos_name:
-        print(video_name)
-        video_folder_path = osp.join(args.input, video_name)
-        imgs_list = sorted(glob.glob(osp.join(video_folder_path, '*')))
-        num_imgs = len(imgs_list)
-        os.makedirs(osp.join(frame_output, video_name), exist_ok=True)
+        try:
+            print(video_name)
+            video_folder_path = osp.join(args.input, video_name)
+            imgs_list = sorted(glob.glob(osp.join(video_folder_path, '*')))
+            num_imgs = len(imgs_list)
+            os.makedirs(osp.join(frame_output, video_name), exist_ok=True)
 
-        # prepare
-        prev = read_img(
-            imgs_list[0],
-            require_mod_crop=True,
-            mod_scale=args.mod_scale,
-            input_rescaling_factor=args.input_rescaling_factor).to(device)
-        cur = prev
-        nxt = read_img(
-            imgs_list[min(1, num_imgs - 1)],
-            require_mod_crop=True,
-            mod_scale=args.mod_scale,
-            input_rescaling_factor=args.input_rescaling_factor).to(device)
-        c, h, w = prev.size()[-3:]
-        state = prev.new_zeros(1, 64, h, w)
-        out = prev.new_zeros(1, c, h * args.netscale, w * args.netscale)
-
-        pbar2 = tqdm(total=num_imgs, unit='frame', desc='inference')
-        tot_model_time = 0
-        cnt_model_time = 0
-        for idx in range(num_imgs):
-            torch.cuda.synchronize()
-            start = time.time()
-            img_name = osp.splitext(osp.basename(imgs_list[idx]))[0]
-
-            out, state = model.cell(torch.cat((prev, cur, nxt), dim=1), state)
-
-            torch.cuda.synchronize()
-            model_time = time.time() - start
-            tot_model_time += model_time
-            cnt_model_time += 1
-
-            if (idx + 1) % args.sample_interval == 0:
-                # put the output frame to the queue to be consumed
-                que.put({'output': out.cpu().clone(), 'imgname': osp.join(frame_output, video_name, f'{img_name}.png')})
-
-            torch.cuda.synchronize()
-            start = time.time()
-            prev = cur
-            cur = nxt
-            nxt = read_img(
-                imgs_list[min(idx + 2, num_imgs - 1)],
+            # prepare
+            prev = read_img(
+                imgs_list[0],
                 require_mod_crop=True,
                 mod_scale=args.mod_scale,
                 input_rescaling_factor=args.input_rescaling_factor).to(device)
-            torch.cuda.synchronize()
-            read_time = time.time() - start
+            cur = prev
+            nxt = read_img(
+                imgs_list[min(1, num_imgs - 1)],
+                require_mod_crop=True,
+                mod_scale=args.mod_scale,
+                input_rescaling_factor=args.input_rescaling_factor).to(device)
+            c, h, w = prev.size()[-3:]
+            state = prev.new_zeros(1, 64, h, w)
+            out = prev.new_zeros(1, c, h * args.netscale, w * args.netscale)
 
-            pbar2.update(1)
-            pbar2.set_description(f'read_time: {read_time}, model_time: {tot_model_time/cnt_model_time}')
+            pbar2 = tqdm(total=num_imgs, unit='frame', desc='inference')
+            tot_model_time = 0
+            cnt_model_time = 0
+            for idx in range(num_imgs):
+                torch.cuda.synchronize()
+                start = time.time()
+                img_name = osp.splitext(osp.basename(imgs_list[idx]))[0]
 
-            mem = psutil.virtual_memory()   #----------------------???????
-            # since the speed of producer (model inference) is faster than the consumer (I/O)
-            # if there is a risk of OOM, just sleep to let the consumer work
-            if mem.percent > 80.0:
-                time.sleep(30)
+                out, state = model.cell(torch.cat((prev, cur, nxt), dim=1), state)
 
-        pbar1.update(1)
+                torch.cuda.synchronize()
+                model_time = time.time() - start
+                tot_model_time += model_time
+                cnt_model_time += 1
+
+                if (idx + 1) % args.sample_interval == 0:
+                    # put the output frame to the queue to be consumed
+                    que.put({'output': out.cpu().clone(), 'imgname': osp.join(frame_output, video_name, f'{img_name}.png')})
+
+                torch.cuda.synchronize()
+                start = time.time()
+                prev = cur
+                cur = nxt
+                nxt = read_img(
+                    imgs_list[min(idx + 2, num_imgs - 1)],
+                    require_mod_crop=True,
+                    mod_scale=args.mod_scale,
+                    input_rescaling_factor=args.input_rescaling_factor).to(device)
+                torch.cuda.synchronize()
+                read_time = time.time() - start
+
+                pbar2.update(1)
+                pbar2.set_description(f'read_time: {read_time}, model_time: {tot_model_time/cnt_model_time}')
+
+                mem = psutil.virtual_memory()  
+                # since the speed of producer (model inference) is faster than the consumer (I/O)
+                # if there is a risk of OOM, just sleep to let the consumer work
+                if mem.percent > 20.0:
+                    time.sleep(30)
+
+            pbar1.update(1)
+        except Exception as e:
+            print(a)
 
     for _ in range(args.num_io_consumer):
         que.put('quit')

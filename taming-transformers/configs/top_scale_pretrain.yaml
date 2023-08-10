@@ -1,6 +1,6 @@
 model:
-  base_learning_rate: 2e-6
-  target: taming.models.vqgan_multi_scale_load_top_scale.VQModel
+  base_learning_rate: 4.5e-6
+  target: taming.models.vqgan_top.VQModel
   params:
     ddconfig:
       embed_dim: 256
@@ -23,13 +23,11 @@ model:
         disc_start: 10000
         disc_weight: 0.8
         codebook_weight: 1.0
-    top_ckpt_path: weights/pretrain_top.ckpt
-    top_lr_weight: 0.25
 
 data:
   target: main.DataModuleFromConfig
   params:
-    batch_size: 3
+    batch_size: 4
     num_workers: 4
     train:
       target: taming.data.augment_custom.CustomTrain

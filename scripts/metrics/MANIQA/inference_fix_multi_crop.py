@@ -105,9 +105,7 @@ if __name__ == '__main__':
     args = parse_args()
     os.makedirs(args.output_dir, exist_ok=True)
     with open(os.path.join(args.output_dir, 'final.txt'), 'w') as f:
-        # crop_regions = sorted(os.listdir(args.crop_meta))  # name of crop meta folders
-        # crop_regions = ["crop_8", "crop_7", "crop_0",]
-        crop_regions = ["crop_4", "crop_6", "crop_18",]
+        crop_regions = ["crop_0", "crop_1", "crop_2",] # crop region set
         
         scores = []
         for crop_region in crop_regions:

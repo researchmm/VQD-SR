@@ -13,7 +13,7 @@ datasets:
   train:
     name: AVC-Train-HRenhance
     type: FFMPEGAnimeDataset
-    dataroot_gt: # TO_MODIFY
+    dataroot_gt: # TO_MODIFY: path of enhaced AVC-Train to adopt HR-SR strategy
     test_mode: False
     io_backend:
       type: disk
@@ -70,12 +70,6 @@ train:
     loss_weight: 1.0
     reduction: mean
 
-# validation settings
-#val:
-#  val_freq: !!float 1e4
-#  save_img: true
-
-# logging settings
 logger:
   print_freq: 100
   save_checkpoint_freq: !!float 5e3

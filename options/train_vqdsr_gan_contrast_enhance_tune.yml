@@ -1,5 +1,5 @@
 # general settings
-name: vqdsr_gan
+name: vqdsr_contrast_enhance_fine_tune
 model_type: VideoRecurrentGANCustomModel
 scale: 4
 num_gpu: auto  # set num_gpu: 0 for cpu mode
@@ -14,7 +14,7 @@ gan_gt_usm: False
 datasets:
   train:
     name: AVC-Train-HRenhance
-    type: TopkVQGANDataset
+    type: TopkVQGANContrastDataset
     dataroot_gt: # TO_MODIFY: path of enhaced AVC-Train to adopt HR-SR strategy
     test_mode: False
     io_backend:
@@ -33,14 +33,15 @@ datasets:
     ffmpeg_profile_names: ['baseline', 'main', 'high']
     ffmpeg_profile_probs:  [0.1, 0.2, 0.7]
 
+    # lower lq contrast
+    contrasts: [0,50]
+
     # vqgan
     vqgan: 
       params:
         ddconfig:
           embed_dim: 256
-          n_embed1: 1024
-          n_embed2: 256
-          n_embed3: 128
+          n_embed: 1024
           beta: 0.25
           resolution: 256
           in_channels: 3
@@ -48,15 +49,15 @@ datasets:
           ch: 128
           num_res_blocks: 2
           down_f: 8
-          ch_mult: [1,1,2,2,4] 
+          ch_mult: [ 1,1,2,2,4]  # num_down = len(ch_mult)-1
           dropout: 0.0
       load_from: vqgan/pretrain_mul_vqgan.ckpt
       level_prob: [0.3, 0.7, 1]
 
     # data loader
     use_shuffle: true
-    num_worker_per_gpu: 4
-    batch_size_per_gpu: 2
+    num_worker_per_gpu: 8
+    batch_size_per_gpu: 4
     dataset_enlarge_ratio: 1
     prefetch_mode: ~
     pin_memory: True
@@ -80,9 +81,14 @@ network_d:
 
 # path
 path:
-  pretrain_network_g: weights/vqdsr_net.pth
+  pretrain_network_g: weights/vqdsr_gan.pth
   param_key_g: params
   strict_load_g: true
+  resume_state: ~
+
+  pretrain_network_d: weights/vqdsr_net_d.pth
+  param_key_d: params
+  strict_load_d: true
   resume_state: ~
 
 # training settings
@@ -90,22 +96,22 @@ train:
   ema_decay: 0.999
   optim_g:
     type: Adam
-    lr: !!float 5e-5
+    lr: !!float 2.5e-5
     weight_decay: 0
     betas: [0.9, 0.99]
-  lr_flow: !!float 1e-5
+
   optim_d:
     type: Adam
-    lr: !!float 5e-5
+    lr: !!float 2.5e-5 
     weight_decay: 0
     betas: [0.9, 0.99]
 
   scheduler:
     type: MultiStepLR
-    milestones: [300000]
+    milestones: [150000]
     gamma: 0.5
 
-  total_iter: 300000
+  total_iter: 150000
   warmup_iter: -1  # no warm up
   fix_flow: ~
 
@@ -138,7 +144,6 @@ train:
 
   net_d_iters: 1
   net_d_init_iters: 0
-
 
 logger:
   print_freq: 100
