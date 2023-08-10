@@ -1,0 +1,13 @@
+basicsr
+facexlib
+numpy
+opencv-python
+pillow
+psutil
+torch
+torchvision
+tqdm
+einops
+pytorch-lightning
+ffmpeg-python
+timm==0.5.4
