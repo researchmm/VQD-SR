@@ -378,8 +378,10 @@ def main():
     parser.add_argument(
         '--suffix', type=str, default=None, help='you can add a suffix string to the sr video name, for example, x2')
     parser.add_argument(
-        '--model_path',type=str,default=None)
-    parser.add_argument('--ema',action='store_true')
+        '--model_path',type=str,default=None, help='path to inference model')
+    parser.add_argument(
+        '--ema',type=bool,default=True, help='whether to use ema model for inference when ema model available')
+
     args = parser.parse_args()
     args.ffmpeg_bin = os.environ.get('ffmpeg_exe_path', 'ffmpeg')
 

@@ -118,8 +118,8 @@ def main():
     parser = get_base_argument_parser()
     parser.add_argument('--input_rescaling_factor', type=float, default=1.0)
     parser.add_argument('--num_io_consumer', type=int, default=3, help='number of IO consumer')
-    parser.add_argument('--model_path',type=str,default=None)
-    parser.add_argument('--ema',action='store_true')
+    parser.add_argument('--model_path',type=str, default=None, help='path to inference model')
+    parser.add_argument('--ema',type=bool,default=True, help='whether to use ema model for inference when ema model available')
     parser.add_argument(
         '--sample_interval',
         type=int,
@@ -131,8 +131,8 @@ def main():
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model = get_inference_model(args, device)
 
-    # prepare output dir
-    frame_output = osp.join(args.output, args.expname)
+    # prepare frames output dir
+    frame_output = osp.join(args.output, args.expname, 'frames')
     os.makedirs(frame_output, exist_ok=True)
 
     # the input format can be:
