@@ -12,7 +12,7 @@ As described in the paper, all the training is performed on 8 NVIDIA V100 GPUs. 
 
 ## Stage 1: Training VQ Degradation Model
 ### Dataset Preparation
-We use the RAL dataset for the training of VQ degradation model. The RAL dataset is released under request, please refer to [Request for AVC-Dataset](README.md#request-for-ral-dataset).
+We use the RAL dataset for the training of VQ degradation model. The RAL dataset is released under request, please refer to [Request for RAL Dataset](README.md#request-for-ral-dataset).
 
 After you download the RAL dataset, put the downloaded data to a root path $dirpath，and modify the [config](taming-transformers/configs) files with $dirpath accordingly.
 
