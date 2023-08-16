@@ -62,16 +62,16 @@ If you want to use customized animation dataset, the data structure should be:
    ```
 3. Train gan model
    
-   Before training, remember to modify the configuration of VQ degradation model $vqgan in the (yaml config)[options/train_vqdsr_gan.yml]
+   Before training, remember to modify the configuration of VQ degradation model $vqgan in the [yaml config](options/train_vqdsr_gan.yml)
     ```bash
    CUDA_VISIBLE_DEVICES='0,1,2,3,4,5,6,7' python -m torch.distributed.launch --master_port 1220 --nproc_per_node=8 vqdsr/train.py -opt options/train_vqdsr_gan.yml --launcher pytorch [--auto_resume]
    ```
 ## Evaluation
 We follow the [prior work](https://github.com/TencentARC/AnimeSR/blob/main/scripts/metrics/README.md) for the evaluation of [MANIQA](https://github.com/IIGROUP/MANIQA).
 
-However, we parallelly evaluate the resulting frames with multiple randomly selected cropping sets considering the randomness. We provided the cropping coordinates we used under ('crop_meta')[scripts/metrics/crop_meta] for you to reproduce the results in our paper.
+However, we parallelly evaluate the resulting frames with multiple randomly selected cropping sets considering the randomness. We provided the cropping coordinates we used under ['crop_meta'](scripts/metrics/crop_meta) for you to reproduce the results in our paper.
 
-You can also generate random cropping sets by the (script)/[scripts/metrics/generate_random_crop_region.py] we prvided.
+You can also generate random cropping sets by the [script](scripts/metrics/generate_random_crop_region.py) we prvided.
 
 Multiple parallel evaluations:
   ```bash
