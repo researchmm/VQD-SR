@@ -1,6 +1,6 @@
 # VQD-SR (ICCV 2023)
 
-### :open_book: Learning Data-Driven Vector-Quantized Degradation Model for Animation Video Super-Resolution
+### Learning Data-Driven Vector-Quantized Degradation Model for Animation Video Super-Resolution
 > [![arXiv](https://img.shields.io/badge/arXiv-Paper-blue.svg)](https://arxiv.org/abs/2303.09826)<br>
 
 ### Contents
