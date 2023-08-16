@@ -16,7 +16,7 @@ We use the RAL dataset for the training of VQ degradation model. The RAL dataset
 
 After you download the RAL dataset, put the downloaded data to a root path $dirpath，and modify the [config](taming-transformers/configs) files with $dirpath accordingly.
 
-If you want to use customized LR animation dataset, remember to also generate (dataset config files)[xxx] containing all the paths of training and test images relative to a root path $dirpath.
+If you want to use customized LR animation dataset, remember to also generate [dataset config files](taming-transformers/data) containing all the paths of training and test images relative to a root path $dirpath.
 
 ### Training
 1. Train top-scale VQGAN
@@ -29,7 +29,7 @@ If you want to use customized LR animation dataset, remember to also generate (d
    ```
 3. Train multi-scale VQGAN
 
-   The GAN model is fine-tuned from the top-scale VQGAN model trained in the previous step. You can also load our pre-trained model [pretrain_top.ckpt](xxx) 
+   The GAN model is fine-tuned from the top-scale VQGAN model trained in the previous step. You can also load our pre-trained model [pretrain_top.ckpt](https://drive.google.com/file/d/1MvDG9NfZjnW0kyCyPtokgC3M8lhFgnLv/view?usp=drive_link) 
    ```bash
    cd taming-transformers
    python main.py -n multi_scale --base configs/load_top_mul_scale.yaml -t True --gpus 0,1,2,3,4,5,6,7
