@@ -21,10 +21,10 @@ We propose a real-world animation video super-resolution method VQD-SR, which ut
 <img src="./datas/teaser.png" width=50%>
 
 ### Overview
-<img src="./datas/overview.png" width=80%>
+<img src="./datas/overview.png" width=100%>
 
 ### Visual
-<img src="./datas/visual.png" width=80%>
+<img src="./datas/visual.png" width=100%>
 
 ## Dependencies and Installation
 - Python == 3.8 (Recommend to use [Anaconda](https://www.anaconda.com/download/#linux) or [Miniconda](https://docs.conda.io/en/latest/miniconda.html))
