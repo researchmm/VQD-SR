@@ -47,9 +47,12 @@ We propose a real-world animation video super-resolution method VQD-SR, which ut
     ```
 
 ## Quick Inference
-Download the pre-trained VQD-SR models [[Google Drive](https://drive.google.com/drive/folders/1gwNTbKLUjt5FlgT6PQQnBz5wFzmNUX8g?usp=share_link)], and put them into the [weights](weights/) folder. Currently, the available pre-trained models are:
-- `VQDSR_v1.pth`: v1 model, also the paper model. You can use this model for paper results reproducing.
-- `VQDSR_v2.pth`: v2 model, fine-tuned from v1 model. Compare with v1, v2 adopts an extra degradation strategy in order to enhance the contrast of the SR output and producing more visually appealing resluts.
+Download the pre-trained VQD-SR models [[Google Drive](https://drive.google.com/file/d/1MvDG9NfZjnW0kyCyPtokgC3M8lhFgnLv/view?usp=drive_link)], and put them into the [weights](weights/) folder. Currently, the available pre-trained models are:
+- `vqdsr_gan.pth`: The VSR model trained with VQ degradation and HR-SR enhancement. You can use this model for paper results reproducing.
+- `pretrain_mul_vqgan.ckpt`: The multi-scale VQ degradation model.
+- `vqdsr_net_d.pth`: The trained discriminator when getting `vqdsr_gan.pth`.
+- `vqdsr_net.pth`: The pre-trained VSR net model.
+- `pretrain_top.ckpt`: The pre-trained top scale VQ degradation model.
 
 VQD-SR supports both frames and videos as input for inference. 
 
