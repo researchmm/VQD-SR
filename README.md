@@ -6,7 +6,7 @@
 ### Contents
 - [Introduction](#introduction)
   - [Overview](#overview)
-  - [Video Demos](#video-demos)
+  - [Visual](#visual)
 - [Dependencies and Installation](#dependencies-and-installation)
 - [Quick Inference](#quick-inference)
 - [Training](#training)
@@ -18,10 +18,13 @@
 ## Introduction
 We propose a real-world animation video super-resolution method VQD-SR, which utilizes a multi-scale VQGAN to decompose the local details from global structures and transfer the degradation priors from real-world animation videos to the learned vector-quantized codebook for degradation modeling. A data enhancement strategy for high-resolution (HR) training videos called HR-SR enhancement is also proposed to further improve the performance of existing VSR methods for animation. 
 
+<img src="./datas/teaser.png" width=50%>
+
 ### Overview
+<img src="./datas/overview.png" width=80%>
 
-### Video Demos
-
+### Visual
+<img src="./datas/visual.png" width=80%>
 
 ## Dependencies and Installation
 - Python == 3.8 (Recommend to use [Anaconda](https://www.anaconda.com/download/#linux) or [Miniconda](https://docs.conda.io/en/latest/miniconda.html))
