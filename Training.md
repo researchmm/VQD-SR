@@ -42,6 +42,8 @@ We use the [AVC-Train](https://github.com/TencentARC/AnimeSR#request-for-avc-dat
 
 After you download the dataset, put the downloaded data to a root path $dataroot_gt，and modify the [config](options) file with $dataroot_gt accordingly.
 
+In the paper, we utilize a tiny small sized [RealESR](https://github.com/xinntao/Real-ESRGAN/blob/master/docs/model_zoo.md) model and bicubic downsampling (MATLAB implementation) to enhance the training HR data. You can also try some other SR models as discussed in the ablation study.
+
 If you want to use customized animation dataset, the data structure should be:
  ```
   ├────$dataroot_gt
