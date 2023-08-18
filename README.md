@@ -3,7 +3,7 @@
 ### Learning Data-Driven Vector-Quantized Degradation Model for Animation Video Super-Resolution
 > [![arXiv](https://img.shields.io/badge/arXiv-Paper-blue.svg)](https://arxiv.org/abs/2303.09826)<br>
 
-### Contents
+## Contents
 - [Introduction](#introduction)
   - [Overview](#overview)
   - [Visual](#visual)
@@ -11,8 +11,9 @@
 - [Quick Inference](#quick-inference)
 - [Training](#training)
 - [Request for RAL Dataset](request-for-ral-dataset)
-- [Acknowledgement](#acknowledgement)
+- [Related Projects](#related-projects)
 - [Citation](#citation)
+- [Acknowledgement](#acknowledgement)
 - [Contact](#contact)
 
 ## Introduction
@@ -110,11 +111,16 @@ See [Training.md](Training.md)
 2. If you understand, acknowledge, and agree to all the terms specified in the [LICENSE AGREEMENT](RAL%20LICENSE%20AGREEMENT.pdf). Please email `zixit99@gmail.com` with the **RAL LICENSE AGREEMENT PDF** file. We will keep the license and send the download link of RAL dataset to you.
 
 
-## Acknowledgement
-This project is build based on [BasicSR](https://github.com/XPixelGroup/BasicSR), [AnimeSR](https://github.com/TencentARC/AnimeSR) and [taming-transformers](https://github.com/CompVis/taming-transformers).
+
+## Related Projects
+We also sincerely recommend some other excellent works related to us. :sparkles: 
+* [FTVSR: Learning Spatiotemporal Frequency-Transformer for Compressed Video Super-Resolution](https://github.com/researchmm/FTVSR)
+* [TTVSR: Learning Trajectory-Aware Transformer for Video Super-Resolution](https://github.com/researchmm/TTVSR/tree/main)
+* [TTSR: Learning Texture Transformer Network for Image Super-Resolution](https://github.com/researchmm/TTSR)
+* [CKDN: Learning Conditional Knowledge Distillation for Degraded-Reference Image Quality Assessment](https://github.com/researchmm/CKDN)
 
 ##  Citation
-If you find this project useful for your research, please consider citing our paper:
+If you find this project useful for your research, please consider citing our paper. :smiley:
 ```bibtex
 @article{tuo2023learning,
   title={Learning Data-Driven Vector-Quantized Degradation Model for Animation Video Super-Resolution},
@@ -123,6 +129,8 @@ If you find this project useful for your research, please consider citing our pa
   year={2023}
 }
 ```
+## Acknowledgement
+This project is build based on [BasicSR](https://github.com/XPixelGroup/BasicSR), [AnimeSR](https://github.com/TencentARC/AnimeSR) and [taming-transformers](https://github.com/CompVis/taming-transformers). We thank the authors for sharing their code.
 
 ## Contact
 :e-mail: If you have any questions, please email `zixit99@gmail.com`. 
