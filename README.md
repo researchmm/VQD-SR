@@ -59,7 +59,7 @@ VQD-SR supports both frames and videos as input for inference.
 
 **Inference on Frames**
 ```bash
-python scripts/inference_vqdsr_frame.py -i ./input --model_path weights/VQDSR_v2.pth --expname vqdsr_v2 ---save_video_too
+python scripts/inference_vqdsr_frame.py -i ./input --model_path weights/vqdsr_gan.pth --expname vqdsr_gan ---save_video_too
 ```
 ```console
 Usage:
@@ -73,16 +73,16 @@ Usage:
   --ema                Whether to use ema model for inference when ema model available. Default: on
   -fps                 The fps of the (possible) saved videos. Default: 24
 ```
-After run the above command, you will get the SR frames in `results/vqdsr_v2/frames` and the SR video in `results/vqdsr_v2/videos`.
+After run the above command, you will get the SR frames in `results/vqdsr_gan/frames` and the SR video in `results/vqdsr_gan/videos`.
 
 **Inference on Video**
 ```bash
 # single gpu and single process inference
-CUDA_VISIBLE_DEVICES=0 python scripts/inference_vqdsr_video.py -i inputs/lr_anime.mp4 weights/VQDSR_v2.pth --expname vqdsr_v2 num_process_per_gpu 1 --suffix 1gpu1process
+CUDA_VISIBLE_DEVICES=0 python scripts/inference_vqdsr_video.py -i inputs/lr_anime.mp4 weights/VQDSR_gan.pth --expname vqdsr_gan num_process_per_gpu 1 --suffix 1gpu1process
 # single gpu and multi process inference (you can use multi-processing to improve GPU utilization)
-CUDA_VISIBLE_DEVICES=0 python scripts/inference_vqdsr_video.py -i inputs/lr_anime.mp4 weights/VQDSR_v2.pth --expname vqdsr_v2 num_process_per_gpu 2 --suffix 1gpu2process
+CUDA_VISIBLE_DEVICES=0 python scripts/inference_vqdsr_video.py -i inputs/lr_anime.mp4 weights/VQDSR_gan.pth --expname vqdsr_gan num_process_per_gpu 2 --suffix 1gpu2process
 # multi gpu and multi process inference
-CUDA_VISIBLE_DEVICES=0,1 python scripts/inference_vqdsr_video.py -i inputs/lr_anime.mp4 weights/VQDSR_v2.pth --expname vqdsr_v2 num_process_per_gpu 2 --suffix 2gpu4process
+CUDA_VISIBLE_DEVICES=0,1 python scripts/inference_vqdsr_video.py -i inputs/lr_anime.mp4 weights/VQDSR_gan.pth --expname vqdsr_gan num_process_per_gpu 2 --suffix 2gpu4process
 ```
 ```console
 Usage:
@@ -100,7 +100,7 @@ Usage:
   -suffix              You can add a suffix string to the sr video name, for example, 1gpu3processx2 which means the SR video is generated with one GPU and three process and the outscale is x2
   -half                Use half precision for inference, it won't make big impact on the visual results
 ```
-SR videos are saved in `results/vqdsr_v2/videos/$video_name` folder.
+SR videos are saved in `results/vqdsr_gan/videos/$video_name` folder.
 
 
 ## Training
