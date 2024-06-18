@@ -37,7 +37,7 @@ We propose a real-world animation video super-resolution method VQD-SR, which ut
 1. Clone repo
 
     ```bash
-    git clone https://github.com/zizixixi/VQD-SR.git
+    git clone https://github.com/researchmm/VQD-SR.git
     cd VQD-SR
     ```
 2. Install
