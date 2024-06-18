@@ -59,7 +59,7 @@ VQD-SR supports both frames and videos as input for inference.
 
 **Inference on Frames**
 ```bash
-python scripts/inference_vqdsr_frame.py -i ./input --model_path weights/vqdsr_gan.pth --expname vqdsr_gan ---save_video_too
+python scripts/inference_vqdsr_frame.py -i ./input --model_path weights/vqdsr_gan.pth --expname vqdsr_gan --save_video_too
 ```
 ```console
 Usage:
@@ -78,11 +78,11 @@ After run the above command, you will get the SR frames in `results/vqdsr_gan/fr
 **Inference on Video**
 ```bash
 # single gpu and single process inference
-CUDA_VISIBLE_DEVICES=0 python scripts/inference_vqdsr_video.py -i inputs/lr_anime.mp4 weights/VQDSR_gan.pth --expname vqdsr_gan num_process_per_gpu 1 --suffix 1gpu1process
+CUDA_VISIBLE_DEVICES=0 python scripts/inference_vqdsr_video.py -i inputs/lr_anime.mp4 --model_path weights/VQDSR_gan.pth --expname vqdsr_gan --num_process_per_gpu 1 --suffix 1gpu1process
 # single gpu and multi process inference (you can use multi-processing to improve GPU utilization)
-CUDA_VISIBLE_DEVICES=0 python scripts/inference_vqdsr_video.py -i inputs/lr_anime.mp4 weights/VQDSR_gan.pth --expname vqdsr_gan num_process_per_gpu 2 --suffix 1gpu2process
+CUDA_VISIBLE_DEVICES=0 python scripts/inference_vqdsr_video.py -i inputs/lr_anime.mp4 --model_path weights/VQDSR_gan.pth --expname vqdsr_gan --num_process_per_gpu 2 --suffix 1gpu2process
 # multi gpu and multi process inference
-CUDA_VISIBLE_DEVICES=0,1 python scripts/inference_vqdsr_video.py -i inputs/lr_anime.mp4 weights/VQDSR_gan.pth --expname vqdsr_gan num_process_per_gpu 2 --suffix 2gpu4process
+CUDA_VISIBLE_DEVICES=0,1 python scripts/inference_vqdsr_video.py -i inputs/lr_anime.mp4 --model_path weights/VQDSR_gan.pth --expname vqdsr_gan --num_process_per_gpu 2 --suffix 2gpu4process
 ```
 ```console
 Usage:
